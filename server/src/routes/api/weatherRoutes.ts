@@ -1,19 +1,61 @@
 import { Router } from 'express';
 const router = Router();
 
-// import HistoryService from '../../service/historyService.js';
-// import WeatherService from '../../service/weatherService.js';
+import HistoryService from '../../service/historyService.js';
+import WeatherService from '../../service/weatherService.js';
 
-// TODO: POST Request with city name to retrieve weather data
-router.post('/', (req, res) => {
-  // TODO: GET weather data from city name
-  // TODO: save city to search history
+router.post('/weather', async (req, res) => {
+    try {
+      const weatherData = await WeatherService.getWeatherForCity(req.body.city);
+      res.json(weatherData);
+    } catch (error) {
+      res.status(400).json({ message: (error as Error).message });
+    }
+  },
+);
+
+  router.get('/weather/:city', async (req, res) => {
+    try {
+      const weatherData = await WeatherService.getWeatherForCity(req.params.city);
+      res.json(weatherData);
+    } catch (error) {
+      res.status(400).json({ message: (error as Error).message });
+    }
+  });
+
+  router.post('/history', async (req, res) => {
+    try {
+      const city = await HistoryService.addCity(req.body.city);
+      res.json(city);
+    } catch (error) {
+      res.status(400).json({ message: (error as Error).message });
+    }
+  });
+
+router.get('/history', async (_req, res) => {
+  try {
+    const cities = await HistoryService.getCities();
+    res.json(cities);
+  } catch (error) {
+    res.status(400).json({ message: (error as Error).message });
+  }
 });
 
-// TODO: GET search history
-router.get('/history', async (req, res) => {});
 
-// * BONUS TODO: DELETE city from search history
-router.delete('/history/:id', async (req, res) => {});
+router.delete('/history/:id', async (req, res) => {
+  try {
+    const cities = await HistoryService.getCities();
+    const city = cities.find(city => city.id === parseInt(req.params.id));
+    if (!city) {
+      throw new Error('City not found');
+    }
+    const newCities = cities.filter(city => city.id !== parseInt(req.params.id));
+    await HistoryService.write(newCities);
+    res.json(city);
+  } catch (error) {
+    res.status(400).json({ message: (error as Error).message });
+  }
+});
+
 
 export default router;
