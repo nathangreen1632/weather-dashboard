@@ -5,16 +5,20 @@ import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 
 router.post('/weather', async (req, res) => {
+  console.log("API weather route hit");
     try {
       const weatherData = await WeatherService.getWeatherForCity(req.body.city);
+
+      console.log("weatherData: ", weatherData);
       res.json(weatherData);
     } catch (error) {
+      console.log("error: ", error);
       res.status(400).json({ message: (error as Error).message });
     }
   },
 );
 
-  router.get('/weather/:city', async (req, res) => {
+  router.get('/:city', async (req, res) => {
     try {
       const weatherData = await WeatherService.getWeatherForCity(req.params.city);
       res.json(weatherData);
