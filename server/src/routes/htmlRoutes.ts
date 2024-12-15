@@ -5,8 +5,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const router = Router();
 
-// TODO: Define route to serve index.html
-router.get('/', (_, res) => {
+router.get('/api/weather/weather', (_, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
