@@ -406,4 +406,4 @@ FodyWeavers.xsd
 /.prettierrc
 /eslint.config.js
 
-!/.env
+.env
