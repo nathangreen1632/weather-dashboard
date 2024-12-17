@@ -1,79 +1,70 @@
+import fs from 'node:fs/promises';
+import {v4 as uuidv4} from 'uuid';
+
 class City {
   name: string;
-  id: number;
+  id: string;
 
-  constructor(name: string, id: number) {
+  constructor(name: string, id: string) {
     this.name = name;
     this.id = id;
   }
 }
 
 class HistoryService {
-  private readonly filePath: string;
-
-  constructor(filePath: string) {
-    this.filePath = filePath;
+  private async read() {
+    const filePath = './db/searchHistory.json';
+    try{
+      const data = await fs.readFile(filePath, 'utf8');
+      return JSON.parse(data);
+    }
+    catch (error) {
+      console.error('Failed to read file:', error);
+      return [];
+    }
   }
 
-   private async read() : Promise<City[]> {
+  private async write(cities: City[]) {
+    const filePath = './db/searchHistory.json';
     try {
-      const data = await import('fs').then(fs => fs.promises.readFile(this.filePath, 'utf8'));
-      return JSON.parse(data) as City[];
+      await fs.writeFile(filePath, JSON.stringify(cities, null, 2));
     } catch (error) {
-      if (error instanceof Error && (error as any).code === 'ENOENT') {
-        return [];
-      }
-      if (error instanceof Error) {
-        throw new Error(`Failed to read file: ${error.message}`);
-      }
-      throw new Error('Failed to read file: Unknown error');
+      console.error('Error writing file', error);
     }
-   }
-
-   async write(cities: City[]) :Promise<void> {
-    try {
-      await import('fs').then(fs => fs.promises.writeFile(this.filePath, JSON.stringify(cities, null, 2), 'utf8'));
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(`Failed to write file: ${error.message}`);
-      }
-      throw new Error('Failed to write file: Unknown error');
-      }
-    }
-
-  async getCities() : Promise<City[]> {
-     return await this.read();
-   }
-
-  async addCity(cityName: string) : Promise<City> {
-    if (cityName !== 'string' || !cityName) {
-      throw new Error('Invalid city name');
-    }
-
-    const cities :City[] = await this.read();
-    if (cities.some(city => city.name.toLowerCase() === cityName.toLowerCase())) {
-      throw new Error('City already exists');
-    }
-
-    const newCity = new City(cityName, cities.length > 0 ? cities[cities.length - 1].id + 1 : 1);
-    cities.push(newCity);
-    await this.write(cities);
-    return newCity;
   }
 
-  async removeCity(id: number) :Promise<City[]> {
-    if (id <= 0) {
-      throw new Error('Invalid city id');
+  async getCities() {
+    try {
+      return await this.read();
     }
-    const cities : City[] = await this.read();
-    const filteredCities : City[] = cities.filter(city => city.id !== id);
+    catch (error) {
+      console.error('Error populating cities:', error);
+      return [];
+    }
+  }
 
-    if (filteredCities.length === cities.length) {
-      throw new Error('City not found');
+  async addCity(city: string) {
+    try {
+      const cities = await this.read();
+      const newCity = new City(city, uuidv4());
+      cities.push(newCity);
+      await this.write(cities);
+      return newCity;
+    } catch (error) {
+      console.error('Error adding city:', error);
+      return null;
     }
-    await this.write(filteredCities);
-    return filteredCities;
+  }
+
+  async removeCity(id: string) {
+    try {
+      const cities = await this.read();
+      const filteredCities = cities.filter((city: City) => city.id !== id);
+      await this.write(filteredCities);
+    } catch (error) {
+      console.error('Error removing city:', error);
+    }
   }
 }
 
-export default new HistoryService('defaultName');
+export default new HistoryService();

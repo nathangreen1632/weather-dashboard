@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, type Request, type Response } from 'express';
 const router = Router();
 
 import HistoryService from '../../service/historyService.js';
@@ -12,9 +12,7 @@ router.post('/', async (req: Request, res: Response) => {
     }
 
     const weatherData = await WeatherService.getWeatherForCity(city);
-    if (!weatherData) {
-      return res.status(404).json({ message: `City "${city}" not found` });
-    }
+
     const existingCity = await HistoryService.getCities().then((cities) =>
       cities.find((existingCity: { name: string }) => existingCity.name === city)
     );
@@ -37,7 +35,8 @@ router.get('/history', async (_req: Request, res: Response) => {
   try {
     const cities = await HistoryService.getCities();
     res.json(cities);
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to fetch search history' });
   }
@@ -45,10 +44,11 @@ router.get('/history', async (_req: Request, res: Response) => {
 
 router.delete('/history/:id', async (req: Request, res: Response) => {
   try {
-    const cityId = parseInt(req.params.id, 10);
+    const cityId = req.params.id;
     await HistoryService.removeCity(cityId);
     res.json({ message: 'City removed from search history' });
-  } catch (error) {
+  }
+  catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Failed to delete city from search history' });
   }

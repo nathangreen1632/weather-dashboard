@@ -82,8 +82,10 @@ Render Functions
 */
 
 const renderCurrentWeather = (currentWeather: any): void => {
-  const { city, date, icon, iconDescription, tempF, windSpeed, humidity } =
+  const { city, date, icon, iconDescription, temperature, windSpeed, humidity } =
     currentWeather;
+  console.log('currentWeather: ', currentWeather);
+let tempF = temperature;
 
   // convert the following to typescript
   heading.textContent = `${city} (${date})`;
@@ -117,8 +119,8 @@ const renderForecast = (forecast: any): void => {
     forecastContainer.append(headingCol);
   }
 
-  for (let i = 0; i < forecast.length; i++) {
-    renderForecastCard(forecast[i]);
+  for (const element of forecast) {
+    renderForecastCard(element);
   }
 };
 
