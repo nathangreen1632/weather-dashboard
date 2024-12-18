@@ -49,7 +49,7 @@ const fetchWeather = async (cityName: string) => {
     console.log('weatherData: ', weatherData);
 
     renderCurrentWeather(weatherData[0]);
-    renderForecast(weatherData.slice(1));
+    renderForecast(weatherData[1]);
   }
   catch (err) {
     console.error(err);
@@ -57,13 +57,12 @@ const fetchWeather = async (cityName: string) => {
 };
 
 const fetchSearchHistory = async () => {
-  const history = await fetch('/api/weather/history', {
+  return await fetch('/api/weather/history', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   });
-  return history;
 };
 
 const deleteCityFromHistory = async (id: string) => {
@@ -82,10 +81,9 @@ Render Functions
 */
 
 const renderCurrentWeather = (currentWeather: any): void => {
-  const { city, date, icon, iconDescription, temperature, windSpeed, humidity } =
+  const { city, date, icon, iconDescription, tempF, windSpeed, humidity } =
     currentWeather;
   console.log('currentWeather: ', currentWeather);
-let tempF = temperature;
 
   // convert the following to typescript
   heading.textContent = `${city} (${date})`;
