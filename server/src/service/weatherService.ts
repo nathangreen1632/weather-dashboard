@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 interface Coordinates {
@@ -36,8 +35,8 @@ class Weather {
 }
 
 class WeatherService {
-  protected baseURL?: string;
-  protected apiKey?: string;
+  private readonly baseURL?: string;
+  private readonly apiKey?: string;
   private cityName: string = '';
 
   constructor() {
@@ -97,28 +96,34 @@ class WeatherService {
         throw new Error(`Error fetching weather data: ${response.statusText}`);
       }
       return await response.json();
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
       throw new Error('Failed to fetch weather data');
     }
   }
 
-  private parseCurrentWeather(response: any) {
-    const { temp, humidity } = response.main;
-    const { speed: windSpeed } = response.wind;
-    const { description, icon } = response.weather[0];
+  private parseCurrentWeather(response: any) : Weather {
+    const { temp, humidity } = response.main || {};
+    const { speed: windSpeed } = response.wind || {};
+    const { description, icon } = response.weather[0] || {};
+    if (temp === undefined) {
+      throw new Error('Temperature is missing in the current weather data');
+    }
     return new Weather(this.cityName, response.dt_txt, temp, icon, description, windSpeed, humidity);
   }
-  private buildForecastArray(currentWeather: Weather, weatherData: any[]) {
-    let filteredDays = weatherData.filter((day: any) => day.dt_txt.includes('12:00:00'));
-
-    const forecast : Weather[] = filteredDays.map((day: any) => {
-      const { temp, humidity } = day.main;
-      const { speed: windSpeed } = day.wind;
-      const { description, icon } = day.weather[0];
-      return new Weather(this.cityName, day.dt_txt, icon, description, temp, windSpeed, humidity);
+  private buildForecastArray(currentWeather: Weather, weatherData: any[]) : (Weather | Weather[])[] {
+    const filteredDays = weatherData.filter((day: any) => day.dt_txt.includes('12:00:00'));
+    const forecast : Weather[] = filteredDays.map((day: any): Weather => {
+      const { temp, humidity } = day.main || {};
+      const { speed: windSpeed } = day.wind || {};
+      const { description, icon } = day.weather[0] || {};
+      if (temp === undefined) {
+        throw new Error('Temperature is missing in the forecast data');
+      }
+      return new Weather(this.cityName, day.dt_txt, temp, icon, description, windSpeed, humidity);
     });
-    return { currentWeather, forecast };
+    return [ currentWeather, forecast ];
   }
 
   async getWeatherForCity(city: string) {
