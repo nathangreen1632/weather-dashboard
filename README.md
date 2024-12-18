@@ -15,15 +15,28 @@ The **Weather Dashboard** is perfect for travelers, planners, or anyone wanting 
 
 
   ## Table of Contents
+
+  - [Technologies Used](#technologies-used)
   - [Key Features](#key-features)
   - [How it Works](#how-it-works)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Technologies Used](#technologies-used)
   - [Contributing](#contributing)
   - [Tests](#tests)
   - [License](#license)
   - [Questions](#questions)
+
+## Technologies Used
+* [![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)](https://www.openai.com)
+* [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5)
+* [![CSS 3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/css_intro.asp)
+* [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://www.javascript.com)
+* [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+* [![OpenWeather API](https://img.shields.io/badge/OpenWeather%20API-FFA500?style=for-the-badge&logo=openweathermap&logoColor=white)](https://openweathermap.org/api)
+* [![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
+* [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+* [![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com)
+
 
  ## Key Features
 - **Real-time Weather Data:** Displays the current weather, including temperature, humidity, wind speed, and more.
@@ -63,16 +76,6 @@ To run this project locally:
     ```bash
     npm run start:dev
     ```
-## Technologies Used
-* [![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)](https://www.openai.com)
-* [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5)
-* [![CSS 3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/css_intro.asp)
-* [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://www.javascript.com)
-* [![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-* [![OpenWeather API](https://img.shields.io/badge/OpenWeather%20API-FFA500?style=for-the-badge&logo=openweathermap&logoColor=white)](https://openweathermap.org/api)
-* [![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
-* [![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
-* [![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com)
 
 ## Usage
 1. Open the Weather Dashboard in your browser.
@@ -96,3 +99,4 @@ This project is licensed under the MIT license. Click [here](https://opensource.
 
 ## Questions
 If you have any questions, please feel free to contact me on GitHub at [nathangreen1632](https://github.com/nathangreen1632).
+
