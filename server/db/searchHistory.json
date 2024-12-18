@@ -10,5 +10,13 @@
   {
     "name": "Seattle",
     "id": "bab96094-a468-43b8-8975-0b9d91dfd438"
+  },
+  {
+    "name": "Los Angeles",
+    "id": "2b76eaba-0ab5-4680-bac4-6d7b03034c23"
+  },
+  {
+    "name": "New York",
+    "id": "281a3436-57d7-4e9c-992e-5f6651e844ac"
   }
 ]

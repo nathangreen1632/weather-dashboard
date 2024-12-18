@@ -27,7 +27,6 @@ The **Weather Dashboard** is perfect for travelers, planners, or anyone wanting 
   - [Questions](#questions)
 
 ## Technologies Used
-* [![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)](https://www.openai.com)
 * [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.com/html5)
 * [![CSS 3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3schools.com/css/css_intro.asp)
 * [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://www.javascript.com)
@@ -78,7 +77,10 @@ To run this project locally:
     ```
 
 ## Usage
+![img.png](img.png)
+
 1. Open the Weather Dashboard in your browser.
+   - [Check out the Weather Dashboard on Render.com](https://weather-dashboard-c4pa.onrender.com/)
 2. Type a city name into the search bar and press **Enter**.
 3. The current weather and five-day forecast will be displayed.
 
